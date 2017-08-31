@@ -1,0 +1,31 @@
+{
+  "name": "restarant-finder",
+  "version": "1.0.0",
+  "description": "this is use full to understand basic of node project and sequalize",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vimalraj9423/restarantproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vimalraj9423/restarantproject/issues"
+  },
+  "homepage": "https://github.com/vimalraj9423/restarantproject#readme",
+  "dependencies": {
+    "good": "^7.3.0",
+    "good-console": "^6.4.0",
+    "good-squeeze": "^5.0.2",
+    "hapi": "^16.5.2",
+    "hapi-swagger": "^7.7.1",
+    "inert": "^4.2.1",
+    "joi": "^10.6.0",
+    "mysql2": "^1.4.2",
+    "sequelize": "^4.8.0",
+    "vision": "^4.1.1"
+  }
+}

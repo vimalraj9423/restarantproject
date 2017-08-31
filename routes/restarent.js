@@ -86,6 +86,25 @@ const restarant={
             }
         }
     })
+    server.route({
+        method:'get',
+        path:'/getCity',
+        config:{
+            tags:['api'],
+            handler:(request,reply)=>{
+                restarantModel.findAll({
+                    attributes:['city'],
+                    group:['city']
+                }).then(response=>{
+                    var v=[];
+                    response.find(value=>{
+                        v.push(value.city)
+                    })
+                    reply(v)
+                })
+            }
+        }
+    })
         next();
     }
 

@@ -1,6 +1,6 @@
 const Sequelize =require('sequelize')
 const sequelize = new Sequelize('restarent', 'softsetuser', 'softset123', {
-  host: process.env.DB_HOST,
+  host: "softset.cnjmcywhbcvu.us-west-2.rds.amazonaws.com",
   dialect: 'mysql',
 
   pool: {
@@ -9,7 +9,7 @@ const sequelize = new Sequelize('restarent', 'softsetuser', 'softset123', {
     idle: 10000
   },
 });
-console.log(process.env.DB_HOST)
+// console.log(process.env.DB_HOST)
 sequelize
   .authenticate()
   .then(() => {

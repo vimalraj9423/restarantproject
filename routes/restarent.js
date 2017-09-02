@@ -146,7 +146,7 @@ const restarant={
         }
     })
     server.route({
-        method:'get',
+        method:'GET',
         path:'/getCity',
         config:{
             tags:['api'],

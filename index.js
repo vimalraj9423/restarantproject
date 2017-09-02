@@ -10,7 +10,7 @@ const Joi = require('joi');
 const restarent =require('./routes/restarent')
 
 const server = new Hapi.Server();
-server.connection({ port: process.env.PORT || 3000 });
+server.connection({ port: process.env.PORT || 3000 ,routes: { cors: { origin: ['*'] } }});
 
 server.route({
     method: 'GET',

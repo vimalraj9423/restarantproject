@@ -1,6 +1,8 @@
 'use strict';
 const restarantModel = require('../models/restarent');
-const reviewModel = require('../models/review')
+const reviewModel = require('../models/review');
+restarantModel.hasMany(reviewModel,{foreignKey:'restarent_id'});
+reviewModel.belongsTo(restarantModel,{foreignKey:'restarent_id'})
 const Joi = require('joi');
 const restarant={
     register: function (server, options, next) {
@@ -68,7 +70,7 @@ const restarant={
                 var data =request.payload;
                 reviewModel.create({
                     name:data.name,
-                    restarant_id:data.restarant_id,
+                    restarent_id:data.restarent_id,
                     review:data.review,
                     star:data.star
                 }).then(response=>{
@@ -79,9 +81,66 @@ const restarant={
             validate:{
                 payload:Joi.object({
                     name:Joi.string().required(),
-                    restarant_id:Joi.string().required(),
+                    restarent_id:Joi.string().required(),
                     review:Joi.string().required(),
                     star:Joi.number().max(5).min(0).required()
+                })
+            }
+        }
+    })
+    server.route({
+        method:'POST',
+        path:'/restarent/filter',
+        config:{
+        tags:['api'],
+            handler:(request,reply)=>{
+                var data=request.payload;
+                var filterObject={}
+                if(data.city){
+                    filterObject["city"]=data.city
+                }
+                if(data.restarent_name){
+                    filterObject["restarent_name"]={
+                        $like:"%"+data.restarent_name+"%"
+                    }
+                }
+                restarantModel.findAll({
+                    where:filterObject
+                }).then(response=>{
+                    reply(response)
+                })
+
+            },
+            validate:{
+                payload:Joi.object({
+                    city:Joi.string().allow(""),
+                    restarent_name:Joi.string().allow("")
+                })
+            }
+
+        }
+    })
+    server.route({
+        method:'POST',
+        path:'/getRestarentDetails',
+        config:{
+            tags:['api'],
+            handler:(request,reply)=>{
+                restarantModel.findAll({
+                    include:[{
+                        model:reviewModel
+                    }],
+                    where:{
+                        restarent_id:request.payload.restarent_id
+                    }
+                }).then(response=>{
+                    console.log(response)
+                    reply(response)
+                })
+            },
+            validate:{
+                payload:Joi.object({
+                    restarent_id:Joi.string().required()
                 })
             }
         }
